@@ -24,3 +24,25 @@ chmod +x install_node.sh
 ### 📌 Sous Windows
 Téléchargez et installez Geth depuis :
 ➡️ https://geth.ethereum.org/downloads/
+
+
+🚀 2. Lancer un Nœud Ethereum
+Démarrez un nœud Ethereum local :
+
+bash
+
+geth --dev --http --http.api eth,net,web3,personal --datadir ./eth-data
+Ouvrez une console pour interagir :
+
+bash
+
+geth attach http://127.0.0.1:8545
+Essayez les commandes :
+
+javascript
+
+eth.blockNumber
+eth.accounts
+eth.getBalance(eth.accounts[0])
+
+📤 Soumettez vos résultats dans student_submission.md.
