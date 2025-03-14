@@ -1,4 +1,4 @@
-# 🏗️ Lab 2 : Installation d'un Nœud Ethereum  
+# 🏗️ Lab 3 : Installation d'un Nœud Ethereum  
 
 ## 🎯 Objectif  
 ✅ Installer un client Ethereum localement (**Geth**)  
