@@ -1,48 +1,58 @@
-# 🏗️ Lab 3 : Installation d'un Nœud Ethereum  
+# 🏗️ Lab 2 : Installer et Interagir avec un Réseau de 3 Nœuds Ethereum Locaux
 
 ## 🎯 Objectif  
-✅ Installer un client Ethereum localement (**Geth**)  
-✅ Démarrer un nœud Ethereum privé  
-✅ Exécuter des commandes de base pour interagir avec la blockchain  
+Dans ce Lab, vous allez :  
+✅ Installer **Geth (Go Ethereum)** sur votre machine Linux  
+✅ Démarrer **3 nœuds Ethereum** sur votre machine  
+✅ Les **connecter entre eux** pour former un réseau privé  
+✅ Observer comment les blocs sont minés et validés  
+✅ Lire et analyser les logs des nœuds  
 
 ---
 
-## 🛠️ **1. Installation de Geth**  
+## 🚀 **1. Installation Automatique de Geth**  
 
-### 📌 **Sous Linux / MacOS**  
+### 📌 **Si vous êtes sous Linux, exécutez le script automatique**  
 
-```bash
-sudo add-apt-repository -y ppa:ethereum/ethereum
-sudo apt update
-sudo apt install ethereum
 
-Ou utilisez le script install_node.sh :
-bash
 chmod +x install_node.sh
 ./install_node.sh
+Ce script va :
+✔️ Installer Geth
+✔️ Créer un réseau Ethereum privé
+✔️ Générer une genesis.json pour définir la blockchain
 
-### 📌 Sous Windows
-Téléchargez et installez Geth depuis :
-➡️ https://geth.ethereum.org/downloads/
+🏗 2. Démarrer 3 Nœuds Ethereum Locaux
+1️⃣ Lancer les 3 nœuds en exécutant le script suivant :
+chmod +x start_nodes.sh
+./start_nodes.sh
 
+2️⃣ Observer les logs des nœuds :
 
-🚀 2. Lancer un Nœud Ethereum
-Démarrez un nœud Ethereum local :
+tail -f node1/geth.log
+tail -f node2/geth.log
+tail -f node3/geth.log
 
-bash
+3️⃣ Attacher une console à un nœud pour l’investigation :
+geth attach node1/geth.ipc
 
-geth --dev --http --http.api eth,net,web3,personal --datadir ./eth-data
-Ouvrez une console pour interagir :
+4️⃣ Vérifier la liste des pairs (autres nœuds connectés) :
+admin.peers
 
-bash
+5️⃣ Vérifier l’état de la blockchain :
+eth.blockNumber
 
-geth attach http://127.0.0.1:8545
-Essayez les commandes :
+6️⃣ Créer un compte Ethereum sur un nœud :
 
 javascript
+Copy
+Edit
+personal.newAccount("mot_de_passe")
 
-eth.blockNumber
-eth.accounts
-eth.getBalance(eth.accounts[0])
 
-📤 Soumettez vos résultats dans student_submission.md.
+📤 3. Soumission
+📌 Répondez aux questions dans student_submission.md :
+
+Quels sont les IDs des nœuds dans admin.nodeInfo ?
+Combien de pairs sont connectés dans admin.peers ?
+Combien de blocs ont été minés après 5 minutes ?
