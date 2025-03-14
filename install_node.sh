@@ -1,47 +1,43 @@
+
 #!/bin/bash
 
-# Script d'installation de Geth (Ethereum) 🚀
-# Fonctionne sous Ubuntu / Debian / MacOS
+# Script d'installation de Geth 
 
-echo "🔧 Installation de Geth (Go Ethereum)..."
+echo " Installation de Geth..."
+sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo apt update
+sudo apt install -y ethereum
 
-# Détection de l'OS
-OS="$(uname -s)"
-case "${OS}" in
-    Linux*)     OS_TYPE=Linux;;
-    Darwin*)    OS_TYPE=Mac;;
-    *)          OS_TYPE="UNKNOWN"
-esac
+echo "✅ Installation terminée !"
 
-# Installation sous Linux (Ubuntu/Debian)
-if [[ "$OS_TYPE" == "Linux" ]]; then
-    echo "🟢 Détection d'un système Linux..."
-    sudo add-apt-repository -y ppa:ethereum/ethereum
-    sudo apt update
-    sudo apt install -y ethereum
-    echo "✅ Installation terminée !"
+# Création du dossier de configuration
+mkdir -p eth-net
+cd eth-net
 
-# Installation sous MacOS (via Homebrew)
-elif [[ "$OS_TYPE" == "Mac" ]]; then
-    echo "🍏 Détection d'un système MacOS..."
-    brew tap ethereum/ethereum
-    brew install ethereum
-    echo "✅ Installation terminée !"
+echo "🔨 Génération du fichier genesis.json..."
 
-else
-    echo "❌ Système non supporté. Installez Geth manuellement depuis https://geth.ethereum.org/downloads/"
-    exit 1
-fi
+cat <<EOF > genesis.json
+{
+  "config": {
+    "chainId": 2024,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0
+  },
+  "difficulty": "0x1",
+  "gasLimit": "0x8000000",
+  "alloc": {}
+}
+EOF
 
-# Vérification de l'installation
-echo "🔍 Vérification de l'installation..."
-geth version || { echo "❌ Erreur : Geth n'est pas installé correctement."; exit 1; }
+echo "✅ Genesis Block créé avec succès !"
 
-# Lancer un nœud en mode développement
-echo "🚀 Démarrage du nœud Ethereum en mode développement..."
-geth --dev --http --http.api eth,net,web3,personal --datadir ./eth-data &
+echo " Initialisation des nœuds..."
+geth --datadir node1 init genesis.json
+geth --datadir node2 init genesis.json
+geth --datadir node3 init genesis.json
 
-echo "✅ Nœud Ethereum lancé avec succès !"
-echo "🌍 Accédez à la console avec : geth attach http://127.0.0.1:8545"
-
-exit 0
+echo "✅ Tous les nœuds sont prêts !"
