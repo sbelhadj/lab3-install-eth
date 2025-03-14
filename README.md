@@ -1,4 +1,4 @@
-# 🏗️ Lab 2 : Installer et Interagir avec un Réseau de 3 Nœuds Ethereum Locaux
+# 🏗️ Lab 3 : Installer et Interagir avec un Réseau de 3 Nœuds Ethereum Locaux
 
 ## 🎯 Objectif  
 Dans ce Lab, vous allez :  
